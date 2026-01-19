@@ -128,6 +128,30 @@ class PxPayAuthorizeRequest extends AbstractRequest
     }
 
     /**
+     * Get the PxPay PhoneNumber
+     *
+     * Optional: The PhoneNumber field can be used to store a customer's phone number and will be returned in the
+     * transaction response. This field may be used for transaction verification purposes.
+     *
+     * @return mixed
+     */
+    public function getPhoneNumber()
+    {
+        return $this->getParameter('phoneNumber');
+    }
+
+    /**
+     * Set the PxPay PhoneNumber
+     *
+     * @param string $value Max 255 bytes
+     * @return $this
+     */
+    public function setPhoneNumber($value)
+    {
+        return $this->setParameter('phoneNumber', $value);
+    }
+
+    /**
      * A timeout (TO) can be set for the hosted payments page, after which the payment page will
      * timeout and no longer allow a payment to be taken. Note: The default timeout of the created hosted
      * payment page session is 72 hours. A specific timeout timestamp can also be specified via the request in
@@ -279,7 +303,6 @@ class PxPayAuthorizeRequest extends AbstractRequest
         return $this->setParameter('forcePaymentMethod', $value);
     }
 
-
     /**
      * Get the transaction data
      *
@@ -300,6 +323,10 @@ class PxPayAuthorizeRequest extends AbstractRequest
 
         if ($this->getEmailAddress()) {
             $data->EmailAddress = $this->getEmailAddress();
+        }
+
+        if ($this->getPhoneNumber()) {
+            $data->PhoneNumber = $this->getPhoneNumber();
         }
 
         if ($this->getTimeout()) {
